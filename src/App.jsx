@@ -8,6 +8,7 @@ import "./App.css";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Services from "./pages/Services";
+import Products from "./pages/Products";
 import Contact from "./pages/Contact";
 
 
@@ -30,6 +31,7 @@ function App() {
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/services" element={<Services />} />
+      <Route path="/products" element={<Products />} />
     
      
      

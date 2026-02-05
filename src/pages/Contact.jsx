@@ -5,9 +5,9 @@ const Contact = () => {
   return (
     <div className="contact-page">
       {/* Hero Section */}
-      <section className="contact-hero">
+      <section className="contact-hero ">
         <div className="container contact-hero-content text-center">
-          <div className="contact-leaf-icon">
+          <div className="contact-leaf-icon mt-5">
             <FaLeaf />
           </div>
           <h1 className="contact-hero-title">Contact Us</h1>
@@ -29,7 +29,7 @@ const Contact = () => {
                 </p>
 
                 <div className="contact-details">
-                  <div className="contact-item">s 
+                  <div className="contact-item"> 
                     <div className="icon-box">
                       <FaMapMarkerAlt />
                     </div>

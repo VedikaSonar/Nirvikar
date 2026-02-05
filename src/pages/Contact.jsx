@@ -34,7 +34,7 @@ const Contact = () => {
                       <FaMapMarkerAlt />
                     </div>
                     <div className="info-box">
-                      <span>123 Ayurvedic Center, Green Valley, India</span>
+                      <span>B Wing, 1st Floor, Jai Ganesh Samrajya, Bhosari, Pune – 39</span>
                     </div>
                   </div>
 
@@ -43,7 +43,8 @@ const Contact = () => {
                       <FaPhoneAlt />
                     </div>
                     <div className="info-box">
-                      <span>+91 90000 00000</span>
+                      <span>+91 7447476486 <br />
+                        +91 9373284792</span>
                     </div>
                   </div>
 
@@ -52,7 +53,7 @@ const Contact = () => {
                       <FaEnvelope />
                     </div>
                     <div className="info-box">
-                      <span>contact@nirvikar.com</span>
+                      <span>nirvikarayurveda@gmail.com</span>
                     </div>
                   </div>
 

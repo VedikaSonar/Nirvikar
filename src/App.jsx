@@ -9,6 +9,7 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Services from "./pages/Services";
 import Products from "./pages/Products";
+import ProductDetails from "./pages/ProductDetails";
 import Contact from "./pages/Contact";
 
 
@@ -32,6 +33,7 @@ function App() {
       <Route path="/contact" element={<Contact />} />
       <Route path="/services" element={<Services />} />
       <Route path="/products" element={<Products />} />
+      <Route path="/products/:id" element={<ProductDetails />} />
     
      
      

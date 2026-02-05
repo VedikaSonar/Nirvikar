@@ -76,7 +76,7 @@ const Products = () => {
                   <p className="product-desc">{product.desc}</p>
                   <div className="product-footer">
                     <span className="product-price">{product.price}</span>
-                    <Link to="/contact" className="book-now-btn">
+                    <Link to={`/products/${product.id}`} className="book-now-btn">
                       Book Now
                     </Link>
                   </div>

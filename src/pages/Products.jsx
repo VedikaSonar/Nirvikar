@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { getProducts, getImageUrl, createInquiry } from '../services/api';
 import panchakarmaTable from '../assets/panchakarma table.jpeg';
 import electricSteamer from '../assets/Electric Steamer.png';
@@ -14,6 +14,13 @@ const Products = () => {
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // Get search query from URL
+  const queryParams = new URLSearchParams(location.search);
+  const searchQuery = queryParams.get('search') || '';
+
   const [inquiryForm, setInquiryForm] = useState({
     name: '',
     email: '',
@@ -26,11 +33,12 @@ const Products = () => {
 
   useEffect(() => {
     fetchProducts();
-  }, []);
+  }, [searchQuery]);
 
   const fetchProducts = async () => {
+    setLoading(true);
     try {
-      const data = await getProducts();
+      const data = await getProducts(searchQuery);
       // API returns { products: [], total: ... }
       setProducts(data.products || []);
     } catch (error) {
@@ -108,7 +116,11 @@ const Products = () => {
           {products.length > 0 ? (
             products.map((product) => (
             <div key={product.id} className="col-lg-4 col-md-6">
-              <div className="product-card">
+              <div 
+                className="product-card" 
+                onClick={() => navigate(`/products/${product.id}`)}
+                style={{ cursor: 'pointer' }}
+              >
                 <div className="product-img-wrapper">
                   <img 
                     src={getImageUrl(product.main_image) || panchakarmaTable} 
@@ -121,12 +133,9 @@ const Products = () => {
                   <p className="product-desc">{product.short_description || product.desc || 'No description available'}</p>
                   <div className="product-footer">
                     <span className="product-price">Rs. {product.selling_price || product.mrp_price || 'N/A'}</span>
-                    <Link 
-                      to={`/products/${product.id}`}
-                      className="book-now-btn"
-                    >
+                    <button className="book-now-btn">
                       View Details
-                    </Link>
+                    </button>
                   </div>
                 </div>
               </div>

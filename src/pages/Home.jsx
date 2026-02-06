@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Typewriter } from 'react-simple-typewriter';
 import { FaArrowRight, FaMortarPestle, FaMotorcycle, FaAngleRight, FaLeaf, FaFlask, FaPlay, FaCertificate, FaCannabis, FaFacebookF, FaTwitter, FaPinterestP, FaInstagram, FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaStar } from 'react-icons/fa';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -35,6 +35,7 @@ import ShirodharaBrass from "../assets/Shirodhara Brass.png";
 const Home = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchProducts();
@@ -199,7 +200,11 @@ const Home = () => {
           >
             {newProducts.map((product) => (
               <SwiperSlide key={product.id}>
-                <div className="product-card">
+                <div 
+                  className="product-card" 
+                  onClick={() => navigate(`/products/${product.id}`)}
+                  style={{ cursor: 'pointer' }}
+                >
                   <div className="product-thumb">
                     <img 
                       src={getImageUrl(product.main_image) || panchkarmatable} 
@@ -222,7 +227,7 @@ const Home = () => {
                         <span className="price-old">Rs. {product.mrp_price}</span>
                       )}
                     </div>
-                    <Link to={`/products/${product.id}`} className="btn btn-sm btn-outline-success mt-2 w-100">View Details</Link>
+                    <button className="btn btn-sm btn-outline-success mt-2 w-100">View Details</button>
                   </div>
                 </div>
               </SwiperSlide>
@@ -406,7 +411,12 @@ const Home = () => {
             {loading ? (
                <div className="text-center col-12">Loading...</div>
             ) : bestSellingProducts.map((product) => (
-              <div key={product.id} className="product-card">
+              <div 
+                key={product.id} 
+                className="product-card"
+                onClick={() => navigate(`/products/${product.id}`)}
+                style={{ cursor: 'pointer' }}
+              >
                 <div className="product-thumb">
                   <img 
                     src={getImageUrl(product.main_image) || panchkarmatable} 
@@ -429,7 +439,7 @@ const Home = () => {
                         <span className="price-old">Rs. {product.mrp_price}</span>
                     )}
                   </div>
-                  <Link to={`/products/${product.id}`} className="btn btn-sm btn-outline-success mt-2 w-100">View Details</Link>
+                  <button className="btn btn-sm btn-outline-success mt-2 w-100">View Details</button>
                 </div>
               </div>
             ))}

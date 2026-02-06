@@ -14,13 +14,24 @@ export const getCategories = async () => {
   }
 };
 
-export const getProducts = async () => {
+export const getProducts = async (search = '') => {
   try {
-    const response = await fetch(`${BASE_URL}/products`);
+    const url = search 
+      ? `${BASE_URL}/products?search=${encodeURIComponent(search)}` 
+      : `${BASE_URL}/products`;
+    const response = await fetch(url);
     if (!response.ok) {
       throw new Error('Failed to fetch products');
     }
-    return await response.json();
+    const data = await response.json();
+    if (data.products) {
+      data.products = data.products.map(product => ({
+        ...product,
+        selling_price: product.selling_price ? parseFloat(product.selling_price) : product.selling_price,
+        mrp_price: product.mrp_price ? parseFloat(product.mrp_price) : product.mrp_price
+      }));
+    }
+    return data;
   } catch (error) {
     console.error('Error fetching products:', error);
     return { products: [], total: 0 };
@@ -33,7 +44,12 @@ export const getProductById = async (id) => {
     if (!response.ok) {
       throw new Error('Failed to fetch product');
     }
-    return await response.json();
+    const product = await response.json();
+    if (product) {
+      product.selling_price = product.selling_price ? parseFloat(product.selling_price) : product.selling_price;
+      product.mrp_price = product.mrp_price ? parseFloat(product.mrp_price) : product.mrp_price;
+    }
+    return product;
   } catch (error) {
     console.error(`Error fetching product ${id}:`, error);
     return null;

@@ -1,11 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaTwitter, FaFacebookF, FaPinterestP, FaLinkedinIn, FaSearch, FaTimes, FaEnvelope } from 'react-icons/fa';
 import logo from '../assets/logo.png';
 
 const Navbar = () => {
   const [isSticky, setIsSticky] = useState(false);
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate();
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchTerm.trim()) {
+      navigate(`/products?search=${encodeURIComponent(searchTerm)}`);
+      setIsNavOpen(false);
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -92,8 +102,16 @@ const Navbar = () => {
 
             <div className="header-actions d-flex align-items-center">
               <div className="search-box">
-                <input type="text" placeholder="Search Here..." className="search-input" />
-                <button className="search-btn"><FaSearch /></button>
+                <form onSubmit={handleSearch} className="d-flex">
+                  <input 
+                    type="text" 
+                    placeholder="Search Here..." 
+                    className="search-input" 
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                  />
+                  <button type="submit" className="search-btn"><FaSearch /></button>
+                </form>
               </div>
             </div>
           </nav>

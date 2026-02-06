@@ -1432,7 +1432,7 @@ text-decoration: none;
 .product-thumb { padding: 16px; }
 .product-thumb img { width: 100%; height: auto; object-fit: contain; }
 .product-info { padding: 0 20px 20px; }
-.product-rating { color: #f4c150; font-size: 12px; margin-bottom: 8px; }
+.product-rating { color: #7da640; font-size: 12px; margin-bottom: 8px; }
 .product-title { font-size: 15px; font-weight: 600; margin-bottom: 8px; color: #1a2e1a; }
 .product-price { font-weight: 700; color: #7da640; font-size: 16px; }
 .price-old { text-decoration: line-through; color: #999; font-size: 13px; margin-left: 8px; font-weight: 400; }

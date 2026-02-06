@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Typewriter } from 'react-simple-typewriter';
-import { FaArrowRight, FaMortarPestle, FaMotorcycle, FaAngleRight, FaLeaf, FaFlask, FaPlay, FaCertificate, FaCannabis, FaFacebookF, FaTwitter, FaPinterestP, FaInstagram, FaMapMarkerAlt, FaPhoneAlt, FaEnvelope } from 'react-icons/fa';
+import { FaArrowRight, FaMortarPestle, FaMotorcycle, FaAngleRight, FaLeaf, FaFlask, FaPlay, FaCertificate, FaCannabis, FaFacebookF, FaTwitter, FaPinterestP, FaInstagram, FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaStar } from 'react-icons/fa';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import OwlCarousel from '../components/OwlCarousel';
+import { getProducts, getImageUrl } from '../services/api';
 
 import heroimg from "../assets/hero-sideimg.png";
 import serviceimg1 from "../assets/service2.png";
@@ -32,6 +33,30 @@ import WoodenPadabhyang from "../assets/Wooden Padabhyang.png";
 import ShirodharaBrass from "../assets/Shirodhara Brass.png";
 
 const Home = () => {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const fetchProducts = async () => {
+    try {
+      const data = await getProducts();
+      setProducts(data.products || []);
+    } catch (error) {
+      console.error("Failed to load products", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Sort products by ID descending for "Best Selling" and "New Products"
+  // Assuming higher ID means newer/best selling for this request
+  const sortedProducts = [...products].sort((a, b) => b.id - a.id);
+  const bestSellingProducts = sortedProducts.slice(0, 8);
+  const newProducts = sortedProducts.slice(0, 8); // Using same top 8 for slider
+
   return (
     <div className="home-page">
       {/* Hero Section */}
@@ -145,6 +170,13 @@ const Home = () => {
         <img src={leaf} alt="" className="product-bg-leaf" />
         <img src={leafright} alt="" className="product-bg-leaf-right" />
         <div className="container">
+          {loading ? (
+             <div className="text-center py-5">
+               <div className="spinner-border text-success" role="status">
+                 <span className="visually-hidden">Loading...</span>
+               </div>
+             </div>
+          ) : (
           <Swiper
             modules={[Pagination, Autoplay]}
             spaceBetween={20}
@@ -165,126 +197,38 @@ const Home = () => {
             className="products-swiper"
             style={{ paddingBottom: '40px' }}
           >
-            <SwiperSlide>
-              <Link to="/products/1" className="text-decoration-none text-dark">
-              <div className="product-card">
-              
-                <div className="product-thumb">
-                  <img src={panchkarmatable} alt="panchakarma table" />
-                </div>
-                <div className="product-info">
-                  <div className="product-rating">
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star-o"></i>
+            {newProducts.map((product) => (
+              <SwiperSlide key={product.id}>
+                <div className="product-card">
+                  <div className="product-thumb">
+                    <img 
+                      src={getImageUrl(product.main_image) || panchkarmatable} 
+                      alt={product.product_name} 
+                      onError={(e) => { e.target.onerror = null; e.target.src = panchkarmatable; }}
+                    />
                   </div>
-                  <h6 className="product-title">Panchakarma Table</h6>
-                  <div className="product-price">
-                  <span className="price-current">Rs. 70000</span>
-                  <span className="price-old">Rs. 75000</span>
-                </div>                </div>
-              </div>
-              </Link>
-            </SwiperSlide>
-            <SwiperSlide>
-              <Link to="/products/7" className="text-decoration-none text-dark">
-              <div className="product-card">
-               
-                <div className="product-thumb">
-                  <img src={Viddhagni} alt="Viddhagni yantra" />
-                </div>
-                <div className="product-info">
-                  <div className="product-rating">
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star-half-o"></i>
-                  </div>
-                  <h6 className="product-title">Viddhagni Yantra</h6>
-                  <div className="product-price">
-                    <span className="price-current">Rs. 20000</span>
-                    <span className="price-old">Rs. 24500</span>
+                  <div className="product-info">
+                    <div className="product-rating">
+                      <FaStar />
+                      <FaStar />
+                      <FaStar />
+                      <FaStar />
+                      <FaStar />
+                    </div>
+                    <h6 className="product-title">{product.product_name}</h6>
+                    <div className="product-price">
+                      <span className="price-current">Rs. {product.selling_price || product.mrp_price}</span>
+                      {product.mrp_price && product.mrp_price > product.selling_price && (
+                        <span className="price-old">Rs. {product.mrp_price}</span>
+                      )}
+                    </div>
+                    <Link to={`/products/${product.id}`} className="btn btn-sm btn-outline-success mt-2 w-100">View Details</Link>
                   </div>
                 </div>
-              </div>
-              </Link>
-            </SwiperSlide>
-            <SwiperSlide>
-              <Link to="/products/3" className="text-decoration-none text-dark">
-              <div className="product-card">
-               
-                <div className="product-thumb">
-                  <img src={Shirodhara} alt="Shirodhara Machine" />
-                </div>
-                <div className="product-info">
-                  <div className="product-rating">
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                  </div>
-                  <h6 className="product-title">Shirodhara Machine</h6>
-                  <div className="product-price">
-                    <span className="price-current">Rs. 64000</span>
-                    <span className="price-old">Rs. 69000</span>
-                  </div>
-                </div>
-              </div>
-              </Link>
-            </SwiperSlide>
-            <SwiperSlide>
-              <Link to="/products/6" className="text-decoration-none text-dark">
-              <div className="product-card">
-                
-                <div className="product-thumb">
-                  <img src={dhoopanyantrs} alt="Dhoopan Yantra" />
-                </div>
-                <div className="product-info">
-                  <div className="product-rating">
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star-o"></i>
-                  </div>
-                  <h6 className="product-title">Dhoopan Yantra</h6>
-                  <div className="product-price">
-                    <span className="price-current">Rs. 2,999</span>
-                    <span className="price-old">Rs. 3,999</span>
-                  </div>
-                </div>
-              </div>
-              </Link>
-            </SwiperSlide>
-              <SwiperSlide>
-              <Link to="/products/2" className="text-decoration-none text-dark">
-              <div className="product-card">
-                
-                <div className="product-thumb">
-                  <img src={ElectricSteamer} alt="Electric Steamer" />
-                </div>
-                <div className="product-info">
-                  <div className="product-rating">
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star"></i>
-                    <i className="fa fa-star-o"></i>
-                  </div>
-                  <h6 className="product-title">Electric Steamer</h6>
-                  <div className="product-price">
-                    <span className="price-current">Rs. 9500</span>
-                    <span className="price-old">Rs. 11900</span>
-                  </div>
-                </div>
-              </div>
-              </Link>
-            </SwiperSlide>
+              </SwiperSlide>
+            ))}
           </Swiper>
+          )}
         </div>
       </section>
 
@@ -459,162 +403,36 @@ const Home = () => {
           </div>
           
           <div className="products-grid">
-            {/* Product 1 */}
-            <Link to="/products/1" className="text-decoration-none text-dark">
-            <div className="product-card">
-              <div className="product-thumb">
-                <img src={panchkarmatable} alt="panchakarna table" />
-              </div>
-              <div className="product-info">
-                <div className="product-rating">
-                  <i className="fa fa-star"></i><i className="fa fa-star"></i><i className="fa fa-star"></i><i className="fa fa-star"></i><i className="fa fa-star-o"></i>
+            {loading ? (
+               <div className="text-center col-12">Loading...</div>
+            ) : bestSellingProducts.map((product) => (
+              <div key={product.id} className="product-card">
+                <div className="product-thumb">
+                  <img 
+                    src={getImageUrl(product.main_image) || panchkarmatable} 
+                    alt={product.product_name} 
+                    onError={(e) => { e.target.onerror = null; e.target.src = panchkarmatable; }}
+                  />
                 </div>
-                <h6 className="product-title">Panchakarma Table </h6>
-                <div className="product-price">
-                  <span className="price-current">Rs. 70000</span>
-                  <span className="price-old">Rs. 75000</span>
-                </div>
-              </div>
-            </div>
-            </Link>
-
-            {/* Product 2 */}
-            <Link to="/products/7" className="text-decoration-none text-dark">
-            <div className="product-card">
-              
-              <div className="product-thumb">
-                <img src={Viddhagni} alt="Viddhagni yantra" />
-              </div>
-              <div className="product-info">
-                <div className="product-rating">
-                  <i className="fa fa-star"></i><i className="fa fa-star"></i><i className="fa fa-star"></i><i className="fa fa-star"></i><i className="fa fa-star"></i>
-                </div>
-                <h6 className="product-title">Viddhagni Yantra</h6>
-                <div className="product-price">
-                  <span className="price-current">Rs. 20000</span>
-                  <span className="price-old">Rs. 24500</span>
+                <div className="product-info">
+                  <div className="product-rating">
+                    <FaStar />
+                    <FaStar />
+                    <FaStar />
+                    <FaStar />
+                    <FaStar />
+                  </div>
+                  <h6 className="product-title">{product.product_name}</h6>
+                  <div className="product-price">
+                    <span className="price-current">Rs. {product.selling_price || product.mrp_price}</span>
+                    {product.mrp_price && product.mrp_price > product.selling_price && (
+                        <span className="price-old">Rs. {product.mrp_price}</span>
+                    )}
+                  </div>
+                  <Link to={`/products/${product.id}`} className="btn btn-sm btn-outline-success mt-2 w-100">View Details</Link>
                 </div>
               </div>
-            </div>
-            </Link>
-
-            {/* Product 3 */}
-            <Link to="/products/3" className="text-decoration-none text-dark">
-            <div className="product-card">
-             
-              <div className="product-thumb">
-                <img src={Shirodhara} alt="Shirodhara Machine" />
-              </div>
-              <div className="product-info">
-                <div className="product-rating">
-                  <i className="fa fa-star"></i><i className="fa fa-star"></i><i className="fa fa-star"></i><i className="fa fa-star"></i><i className="fa fa-star"></i>
-                </div>
-                <h6 className="product-title">Shirodhara Machine</h6>
-                <div className="product-price">
-                  <span className="price-current">Rs. 64000</span>
-                  <span className="price-old">Rs. 69000</span>
-                </div>
-              </div>
-            </div>
-            </Link>
-
-            {/* Product 4 */}
-            <Link to="/products/6" className="text-decoration-none text-dark">
-            <div className="product-card">
-              
-              <div className="product-thumb">
-                <img src={dhoopanyantrs} alt="dhoopan yantrs" />
-              </div>
-              <div className="product-info">
-                <div className="product-rating">
-                  <i className="fa fa-star"></i><i className="fa fa-star"></i><i className="fa fa-star"></i><i className="fa fa-star"></i><i className="fa fa-star-o"></i>
-                </div>
-                <h6 className="product-title">Dhoopan Yantrs</h6>
-                <div className="product-price">
-                  <span className="price-current">Rs. 2,999</span>
-                  <span className="price-old">Rs. 3,999</span>
-                </div>
-              </div>
-            </div>
-            </Link>
-
-            {/* Product 5 */}
-            <Link to="/products/4" className="text-decoration-none text-dark">
-            <div className="product-card">
-              
-              <div className="product-thumb">
-                <img src={steamcabinet} alt="Steam Cabinet" />
-              </div>
-              <div className="product-info">
-                <div className="product-rating">
-                  <i className="fa fa-star"></i><i className="fa fa-star"></i><i className="fa fa-star"></i><i className="fa fa-star"></i><i className="fa fa-star"></i>
-                </div>
-                <h6 className="product-title">Steam Cabinet</h6>
-                <div className="product-price">
-                  <span className="price-current">Rs. 32,000</span>
-                  <span className="price-old">Rs. 36,000</span>
-                </div>
-              </div>
-            </div>
-            </Link>
-
-            {/* Product 6 */}
-            <Link to="/products/2" className="text-decoration-none text-dark">
-            <div className="product-card">
-              <div className="product-thumb">
-                <img src={ElectricSteamer} alt="Electric Steamer" />
-              </div>
-              <div className="product-info">
-                <div className="product-rating">
-                  <i className="fa fa-star"></i><i className="fa fa-star"></i><i className="fa fa-star"></i><i className="fa fa-star"></i><i className="fa fa-star-o"></i>
-                </div>
-                <h6 className="product-title">Electric Steamer</h6>
- <div className="product-price">
-                  <span className="price-current">Rs. 9,500</span>
-                  <span className="price-old">Rs. 11,900</span>
-                </div>              </div>
-            </div>
-            </Link>
-
-            {/* Product 7 */}
-            <Link to="/products/5" className="text-decoration-none text-dark">
-            <div className="product-card">
-             
-              <div className="product-thumb">
-                <img src={WoodenPadabhyang} alt="Wooden Padabhyang" />
-              </div>
-              <div className="product-info">
-                <div className="product-rating">
-                  <i className="fa fa-star"></i><i className="fa fa-star"></i><i className="fa fa-star"></i><i className="fa fa-star"></i><i className="fa fa-star"></i>
-                </div>
-                <h6 className="product-title">Wooden Padabhyang</h6>
-                <div className="product-price">
-                  <span className="price-current">Rs. 565/850/950</span>
-                  <span className="price-old">Rs. 800/1100/1200</span>
-                </div>
-              </div>
-            </div>
-            </Link>
-
-            {/* Product 8 */}
-            <Link to="/products/8" className="text-decoration-none text-dark">
-            <div className="product-card">
-              <div className="product-thumb">
-                <img src={ShirodharaBrass} alt="ShirodharaBrass" />
-              </div>
-              <div className="product-info">
-                <div className="product-rating">
-                  <i className="fa fa-star"></i><i className="fa fa-star"></i><i className="fa fa-star"></i><i className="fa fa-star"></i><i className="fa fa-star-o"></i>
-                </div>
-                <h6 className="product-title">Shirodhara Brass</h6>
-                <div className="product-price">
-                  <span className="price-current">Rs. 3000</span>
-                  <span className="price-old">Rs. 3500</span>
-                </div>
-              </div>
-            </div>
-            </Link>
-
+            ))}
           </div>
         </div>
       </section>

@@ -232,7 +232,7 @@ const ProductDetails = () => {
                   {product.uses && <li><strong>Uses:</strong> {product.uses}</li>}
                 </ul>
                 
-                <div className="mb-3 text-warning">
+                <div className="mb-3" style={{ color: '#7da640' }}>
                   <FaStar /><FaStar /><FaStar /><FaStar /><FaStar />
                 </div>
 

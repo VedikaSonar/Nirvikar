@@ -67,16 +67,16 @@ const Footer = () =>{
               <ul className="contact-list">
                 <li>
                   <FaMapMarkerAlt className="contact-icon" />
-                  <span>B Wing, 1st Floor, Jai Ganesh Samrajya,
+                  <span className='text-white'>B Wing, 1st Floor, Jai Ganesh Samrajya,
 Bhosari, Pune – 39</span>
                 </li>
                 <li>
                   <FaPhoneAlt className="contact-icon" />
-                  <span>+91 7447476486 <br /> +91 9373284792</span>
+                  <span className='text-white'>+91 7447476486 <br /> +91 9373284792</span>
                 </li>
                 <li>
                   <FaEnvelope className="contact-icon" />
-                  <span>nirvikarayurveda@gmail.com</span>
+                  <span className='text-white'>nirvikarayurveda@gmail.com</span>
                 </li>
               </ul>
             </div>

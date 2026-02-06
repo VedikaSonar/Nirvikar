@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Typewriter } from 'react-simple-typewriter';
 import { FaArrowRight, FaMortarPestle, FaMotorcycle, FaAngleRight, FaLeaf, FaFlask, FaPlay, FaCertificate, FaCannabis, FaFacebookF, FaTwitter, FaPinterestP, FaInstagram, FaMapMarkerAlt, FaPhoneAlt, FaEnvelope } from 'react-icons/fa';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -165,6 +166,7 @@ const Home = () => {
             style={{ paddingBottom: '40px' }}
           >
             <SwiperSlide>
+              <Link to="/products/1" className="text-decoration-none text-dark">
               <div className="product-card">
               
                 <div className="product-thumb">
@@ -179,13 +181,15 @@ const Home = () => {
                     <i className="fa fa-star-o"></i>
                   </div>
                   <h6 className="product-title">Panchakarma Table</h6>
- <div className="product-price">
+                  <div className="product-price">
                   <span className="price-current">Rs. 70000</span>
                   <span className="price-old">Rs. 75000</span>
                 </div>                </div>
               </div>
+              </Link>
             </SwiperSlide>
             <SwiperSlide>
+              <Link to="/products/7" className="text-decoration-none text-dark">
               <div className="product-card">
                
                 <div className="product-thumb">
@@ -206,8 +210,10 @@ const Home = () => {
                   </div>
                 </div>
               </div>
+              </Link>
             </SwiperSlide>
             <SwiperSlide>
+              <Link to="/products/3" className="text-decoration-none text-dark">
               <div className="product-card">
                
                 <div className="product-thumb">
@@ -228,8 +234,10 @@ const Home = () => {
                   </div>
                 </div>
               </div>
+              </Link>
             </SwiperSlide>
             <SwiperSlide>
+              <Link to="/products/6" className="text-decoration-none text-dark">
               <div className="product-card">
                 
                 <div className="product-thumb">
@@ -250,8 +258,10 @@ const Home = () => {
                   </div>
                 </div>
               </div>
+              </Link>
             </SwiperSlide>
               <SwiperSlide>
+              <Link to="/products/2" className="text-decoration-none text-dark">
               <div className="product-card">
                 
                 <div className="product-thumb">
@@ -272,6 +282,7 @@ const Home = () => {
                   </div>
                 </div>
               </div>
+              </Link>
             </SwiperSlide>
           </Swiper>
         </div>
@@ -354,7 +365,7 @@ const Home = () => {
           left: 0,
           width: '100%',
           height: '100%',
-          backgroundColor: 'rgb(3 33 21 / 86%)',
+          backgroundColor: 'rgb(63 87 40 / 89%)',
           zIndex: 1
         }}></div>
         <div className="container" style={{ position: 'relative', zIndex: 2 }}>
@@ -449,6 +460,7 @@ const Home = () => {
           
           <div className="products-grid">
             {/* Product 1 */}
+            <Link to="/products/1" className="text-decoration-none text-dark">
             <div className="product-card">
               <div className="product-thumb">
                 <img src={panchkarmatable} alt="panchakarna table" />
@@ -464,8 +476,10 @@ const Home = () => {
                 </div>
               </div>
             </div>
+            </Link>
 
             {/* Product 2 */}
+            <Link to="/products/7" className="text-decoration-none text-dark">
             <div className="product-card">
               
               <div className="product-thumb">
@@ -482,8 +496,10 @@ const Home = () => {
                 </div>
               </div>
             </div>
+            </Link>
 
             {/* Product 3 */}
+            <Link to="/products/3" className="text-decoration-none text-dark">
             <div className="product-card">
              
               <div className="product-thumb">
@@ -500,8 +516,10 @@ const Home = () => {
                 </div>
               </div>
             </div>
+            </Link>
 
             {/* Product 4 */}
+            <Link to="/products/6" className="text-decoration-none text-dark">
             <div className="product-card">
               
               <div className="product-thumb">
@@ -518,8 +536,10 @@ const Home = () => {
                 </div>
               </div>
             </div>
+            </Link>
 
             {/* Product 5 */}
+            <Link to="/products/4" className="text-decoration-none text-dark">
             <div className="product-card">
               
               <div className="product-thumb">
@@ -536,8 +556,10 @@ const Home = () => {
                 </div>
               </div>
             </div>
+            </Link>
 
             {/* Product 6 */}
+            <Link to="/products/2" className="text-decoration-none text-dark">
             <div className="product-card">
               <div className="product-thumb">
                 <img src={ElectricSteamer} alt="Electric Steamer" />
@@ -552,8 +574,10 @@ const Home = () => {
                   <span className="price-old">Rs. 11,900</span>
                 </div>              </div>
             </div>
+            </Link>
 
             {/* Product 7 */}
+            <Link to="/products/5" className="text-decoration-none text-dark">
             <div className="product-card">
              
               <div className="product-thumb">
@@ -570,8 +594,10 @@ const Home = () => {
                 </div>
               </div>
             </div>
+            </Link>
 
             {/* Product 8 */}
+            <Link to="/products/8" className="text-decoration-none text-dark">
             <div className="product-card">
               <div className="product-thumb">
                 <img src={ShirodharaBrass} alt="ShirodharaBrass" />
@@ -587,6 +613,7 @@ const Home = () => {
                 </div>
               </div>
             </div>
+            </Link>
 
           </div>
         </div>

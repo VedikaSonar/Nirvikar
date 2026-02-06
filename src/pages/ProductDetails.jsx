@@ -12,6 +12,8 @@ import shirodhara from '../assets/Shirodhara.png';
 import steamCabinet from '../assets/Steam Cabinet.png';
 import woodenPadabhyang from '../assets/Wooden Padabhyang.png';
 import dhoopanYantra from '../assets/dhoopan yantra.png';
+import Viddhagni from "../assets/VIDDHAGNI YANTRA.png";
+import ShirodharaBrass from "../assets/Shirodhara Brass.png";
 import heroBg from '../assets/hero.jpg';
 import OwlCarousel from '../components/OwlCarousel';
 
@@ -83,15 +85,41 @@ const products = [
   },
   {
     id: 6,
-    title: "Heated Mattress (Mat)",
-    desc: "Therapeutic heated mattress for consistent warmth during treatments.",
+    title: "Dhoopan Yantra",
+    desc: "Traditional Dhoopan Yantra for Ayurvedic fumigation therapy.",
     img: dhoopanYantra,
     features: [
-      "Adjustable heat settings",
-      "Waterproof cover",
-      "Safety overheat protection",
-      "Comfortable cushioning",
-      "Easy to wipe clean"
+      "High-quality material",
+      "Efficient smoke dispersion",
+      "Safe to handle",
+      "Easy to clean",
+      "Durable construction"
+    ]
+  },
+  {
+    id: 7,
+    title: "Viddhagni Yantra",
+    desc: "Specialized Viddhagni Yantra for precise Ayurvedic treatments.",
+    img: Viddhagni,
+    features: [
+      "Precision engineered",
+      "Surgical grade stainless steel",
+      "Ergonomic grip",
+      "Sterilizable",
+      "Rust-resistant"
+    ]
+  },
+  {
+    id: 8,
+    title: "Shirodhara Brass",
+    desc: "Premium Brass Shirodhara pot for authentic oil flow treatments.",
+    img: ShirodharaBrass,
+    features: [
+      "Pure brass construction",
+      "Consistent oil flow",
+      "Traditional design",
+      "Easy to hang",
+      "Corrosion resistant"
     ]
   }
 ];
@@ -138,11 +166,26 @@ const ProductDetails = () => {
   }, [id]);
 
   const [activeTab, setActiveTab] = useState('description');
+  const [showModal, setShowModal] = useState(false);
 
   const relatedProducts = useMemo(() => {
     if (!product) return [];
     return products.filter(p => p.id !== product.id);
   }, [product]);
+
+  const handleOpenModal = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    alert("Enquiry submitted successfully!");
+    setShowModal(false);
+  };
 
   if (!product) {
     return <div className="text-center py-5" style={{ marginTop: '100px' }}>Product not found</div>;
@@ -188,7 +231,7 @@ const ProductDetails = () => {
               </div>
 
               <div className="pd-action-buttons">
-                <button className="pd-btn-quote">Get a Quote</button>
+                <button className="pd-btn-quote" onClick={handleOpenModal}>Get a Quote</button>
               
               </div>
             </div>
@@ -290,6 +333,44 @@ const ProductDetails = () => {
       </div>
 </section>
      
+      {showModal && (
+        <div className="pd-modal-overlay">
+          <div className="pd-modal-content">
+            <div className="pd-modal-header">
+              <h4 className="pd-modal-title">Get a Quote</h4>
+              <button className="pd-modal-close" onClick={handleCloseModal}>&times;</button>
+            </div>
+            <div className="pd-modal-body">
+              <form onSubmit={handleFormSubmit}>
+                <div className="mb-3">
+                  <label className="form-label">Name</label>
+                  <input type="text" className="form-control" required />
+                </div>
+                <div className="mb-3">
+                  <label className="form-label">Mobile Number</label>
+                  <input type="tel" className="form-control" required />
+                </div>
+                <div className="mb-3">
+                  <label className="form-label">Email ID</label>
+                  <input type="email" className="form-control" required />
+                </div>
+                <div className="mb-3">
+                  <label className="form-label">Address</label>
+                  <input type="text" className="form-control" required />
+                </div>
+                <div className="mb-3">
+                  <label className="form-label">Message</label>
+                  <textarea className="form-control" rows="3" required></textarea>
+                </div>
+                <div className='text-center'>
+                <button type="submit" className="btn pd-btn-submit bg-success w-50 text-white">Submit</button>
+
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

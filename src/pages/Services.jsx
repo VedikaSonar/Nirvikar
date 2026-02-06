@@ -124,7 +124,7 @@ const Services = () => {
           left: 0,
           width: '100%',
           height: '100%',
-          backgroundColor: 'rgb(3 33 21 / 86%)',
+          backgroundColor: 'rgba(63, 87, 40, 0.89)',
           zIndex: 1
         }}></div>
         <div className="container" style={{ position: 'relative', zIndex: 2 }}>

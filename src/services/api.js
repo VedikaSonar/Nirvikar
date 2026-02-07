@@ -82,8 +82,15 @@ export const createInquiry = async (inquiryData) => {
 export const getImageUrl = (imagePath) => {
   if (!imagePath) return null;
   if (imagePath.startsWith('http')) return imagePath;
-  // If path starts with /uploads, just append to base
-  if (imagePath.startsWith('/uploads')) return `${UPLOADS_URL}${imagePath}`;
-  // If just filename or uploads/..., ensure slash
-  return `${UPLOADS_URL}/${imagePath.replace(/^\/+/, '')}`;
+  
+  // Normalize path: replace backslashes with forward slashes and remove leading slash
+  const normalizedPath = imagePath.replace(/\\/g, '/').replace(/^\/+/, '');
+  
+  // If path starts with uploads, append to base
+  if (normalizedPath.startsWith('uploads/')) {
+      return `${UPLOADS_URL}/${normalizedPath}`;
+  }
+  
+  // If it's just a filename, assume it's in uploads
+  return `${UPLOADS_URL}/uploads/${normalizedPath}`;
 };

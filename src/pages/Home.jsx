@@ -66,7 +66,7 @@ const Home = () => {
         <div className="container hero-content">
           <div className="row align-items-center">
             <div className="col-md-6">
-              <div className="hero-text">
+              <div className="hero-text  ">
                 <h6 className="hero-subtitle">NAH Ayutech Pvt. Ltd.</h6>
                 <h1 className="hero-title">
                   Complete Panchakarma Care, Instruments
@@ -588,11 +588,10 @@ const Home = () => {
                   <i className="fa fa-star"></i><i className="fa fa-star"></i><i className="fa fa-star"></i><i className="fa fa-star"></i><i className="fa fa-star"></i>
                 </div>
                 <p className="testimonial-text">
-                  Quis viverra nibh cras pulvinar mattis nunc sed blandit. Ultricies tristique nulla aliquet enim tortor at auctor urna. Nunc lobortis mattis aliquam faucibus purus in massa tempor.
-                </p>
+                 Our Panchakarma unit was successfully established with NAH Ayutech’s expertise.                </p>
                 <div className="client-info">
                   <img src="https://placehold.co/100x100?text=M" alt="Michael" className="client-img" />
-                  <div className="client-name">Michael</div>
+                  <div className="client-name">Rahul</div>
                   <div className="client-role">Designer</div>
                 </div>
               </div>

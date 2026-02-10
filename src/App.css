@@ -7,6 +7,7 @@
   --text-light: #cccccc;
 }
 
+
 /* =========================================
    Contact Page (Image-Matched) Styles
    ========================================= */
@@ -116,7 +117,7 @@
 .info-box span {
   color: #444;
   font-weight: 500;
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .contact-map-card {
@@ -676,7 +677,8 @@ body {
   background-color: #81c573; /* Terracotta button */
   color: #fff;
   border: none;
-  padding: 10px 30px;
+  margin-left: -80px;
+  padding: 10px 20px;
   border-radius: 50px;
   font-weight: 600;
   cursor: pointer;
@@ -1042,6 +1044,12 @@ body {
 /* =========================================
    Products Page Styles
    ========================================= */
+@media (max-width: 768px) {
+.products-hero {
+  padding: 40px 0px !important;
+}
+}
+
 .products-hero {
   background: url('./assets/hero.jpg') no-repeat center center/cover;
   position: relative;
@@ -1639,7 +1647,7 @@ text-decoration: none;
    ========================================= */
 .about-hero {
   position: relative;
-  height: 60vh;
+  /* height: 60vh; */
   min-height: 500px;
   background-size: cover;
   background-position: center;

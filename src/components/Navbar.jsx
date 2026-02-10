@@ -60,7 +60,7 @@ const Navbar = () => {
       {/* Main Navbar */}
       <div className="nav-main">
         <div className="container">
-          <nav className="navbar navbar-expand-lg navbar-dark p-0">
+          <nav className="navbar navbar-expand-lg navbar-dark p-0" style={{flexWrap: 'nowrap'}}>
             <Link className="navbar-brand" to="/">
               <img src={logo} alt="CANA Logo" style={{ maxHeight: '50px' }} />
             </Link>

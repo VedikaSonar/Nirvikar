@@ -14,11 +14,18 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  padding: 90px 0 80px; /* Increased top padding for navbar overlay */
+  padding: 60px 0 80px; /* Increased top padding for navbar overlay */
   margin-bottom: 40px;
   position: relative;
   overflow: hidden;
   color: #fff;
+}
+
+@media (max-width: 768px) {
+.pd-header-section {
+  padding: 10px 0 80px; /* Increased top padding for navbar overlay */
+  margin-bottom: 40px;
+}
 }
 
 .pd-header-section::before {
@@ -28,7 +35,6 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Overlay for better text visibility */
   z-index: 1;
 }
 

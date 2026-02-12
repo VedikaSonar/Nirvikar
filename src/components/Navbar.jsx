@@ -95,6 +95,9 @@ const Navbar = () => {
                   <Link className="nav-link" to="/services" onClick={() => setIsNavOpen(false)}>Services </Link>
                 </li>
                 <li className="nav-item">
+                  <Link className="nav-link" to="/software" onClick={() => setIsNavOpen(false)}>Software</Link>
+                </li>
+                <li className="nav-item">
                   <Link className="nav-link" to="/contact" onClick={() => setIsNavOpen(false)}>Contact</Link>
                 </li>
               </ul>
